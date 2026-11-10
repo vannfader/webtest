@@ -1,0 +1,176 @@
+/* Vännfäder — sitio estático
+   Fuentes (roles fijos):
+   - Shippori   -> etiquetas, navegación pequeña, identificadores
+   - Rhymes Text -> textos de apertura, títulos editoriales
+   - Neue Haas Unica -> cuerpo, descripciones, información funcional
+   Los archivos de Rhymes y Shippori se cargan desde el CDN de Readymag mientras
+   no estén en /fonts. Para quedar independiente de Readymag: descargarlos a /fonts
+   y cambiar las rutas de abajo. */
+
+@font-face{font-family:"Rhymes Text";font-style:normal;font-weight:400;font-display:swap;
+  src:url("../fonts/RhymesText-Regular.woff2") format("woff2"),
+      url("https://c-p.rmcdn.net/custom-fonts/font-2e7cd279-ca9c-4443-92a5-4ab676d150d4.woff2") format("woff2");}
+@font-face{font-family:"Rhymes Text";font-style:italic;font-weight:400;font-display:swap;
+  src:url("../fonts/RhymesText-Italic.woff2") format("woff2"),
+      url("https://c-p.rmcdn.net/custom-fonts/font-efe188a4-c1db-4c88-b912-e4ed839b4ebc.woff2") format("woff2");}
+@font-face{font-family:"Shippori VF";font-style:normal;font-weight:400;font-display:swap;
+  src:url("../fonts/Shippori.woff") format("woff"),
+      url("https://c-p.rmcdn.net/custom-fonts/font-68a937bd-fc46-4c55-9d18-0fc1a167eadf.woff") format("woff");}
+/* Neue Haas Unica: licencia Adobe Fonts. Si tienes el kit web, enlázalo en el <head>
+   (ver LEEME). Mientras tanto se usa el sistema. */
+
+:root{
+  --bg:#000; --fg:#fff; --muted:rgba(255,255,255,.62); --line:rgba(255,255,255,.55);
+  --bar:#363636; --card:#111;
+  --sans:"Neue Haas Unica","Neue Haas Unica Pro","Helvetica Neue",Helvetica,Arial,sans-serif;
+  --serif:"Rhymes Text",Georgia,"Times New Roman",serif;
+  --label:"Shippori VF","Shippori Antique","Shippori Mincho",Georgia,serif;
+  --pad:clamp(12px,1.1vw,20px);
+  --gap:clamp(10px,1.16vw,20px);
+  --radius:clamp(14px,1.45vw,25px);
+  --nav-h:54px;
+}
+:root[data-theme="light"]{
+  --bg:#fff; --fg:#000; --muted:rgba(0,0,0,.6); --line:rgba(0,0,0,.5);
+  --bar:#e6e6e6; --card:#eee;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--fg);font-family:var(--sans);font-weight:400;
+  font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img,video{display:block;max-width:100%}
+a{color:inherit}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+
+/* ---------- navegación fija ---------- */
+.nav{position:fixed;inset:0 0 auto 0;height:var(--nav-h);z-index:50;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 var(--pad);background:var(--bar);border-radius:0 0 14px 14px;
+  -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.nav__logo{display:flex;gap:4px;align-items:center;text-decoration:none}
+.nav__logo i{display:block;width:17px;height:17px;background:var(--fg)}
+.nav__logo i:first-child{border-radius:50%}
+.nav__right{display:flex;align-items:center;gap:clamp(14px,2.4vw,32px)}
+.nav__links{display:flex;gap:clamp(12px,1.9vw,32px);list-style:none}
+.nav a.l{font-size:clamp(10px,.8vw,14px);letter-spacing:.01em;text-transform:uppercase;
+  text-decoration:none;color:var(--fg);opacity:.95}
+.nav a.l:hover,.nav a.l[aria-current]{text-decoration:underline;text-underline-offset:4px}
+.theme{background:none;border:0;color:var(--fg);cursor:pointer;width:22px;height:22px;
+  display:grid;place-items:center}
+.theme svg{width:15px;height:15px;fill:currentColor}
+.theme .sun{display:none}
+:root[data-theme="light"] .theme .sun{display:block}
+:root[data-theme="light"] .theme .moon{display:none}
+
+/* ---------- tipografía base ---------- */
+.serif{font-family:var(--serif)}
+.label{font-family:var(--label);font-size:12px;line-height:1.6;text-transform:uppercase;letter-spacing:.02em}
+.lead{font-family:var(--serif);font-size:clamp(20px,1.85vw,36px);line-height:1.47}
+.lead a{text-decoration:underline;text-underline-offset:.18em;text-decoration-thickness:1px}
+.sub{font-size:clamp(17px,1.39vw,28px);line-height:1.33}
+.sub em,.sub .i{font-family:var(--serif);font-style:italic}
+.body{font-size:clamp(14px,.93vw,18px);line-height:1.5}
+
+/* ---------- layout general ---------- */
+main{padding-top:0}
+.wrap{padding-inline:var(--pad)}
+.hero{min-height:100svh;display:flex;align-items:center;justify-content:center;
+  padding:calc(var(--nav-h) + 24px) var(--pad) 48px;text-align:center}
+.hero p{font-size:clamp(26px,3.07vw,60px);line-height:1.19;max-width:77vw}
+.hero .w{font-family:var(--serif)}
+.block{padding:clamp(32px,6vw,110px) var(--pad) 0}
+.intro{max-width:60vw;padding-top:clamp(64px,12vw,220px)}
+.intro .lead{max-width:62ch}
+
+/* dos videos de la home (aún sin animación/streaming) */
+.pair{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--gap)}
+.ph{aspect-ratio:836/541;border-radius:var(--radius);background:var(--card);overflow:hidden}
+.ph video{width:100%;height:100%;object-fit:cover}
+
+/* tarjetas */
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--gap)}
+.card{display:block;text-decoration:none;color:inherit}
+.card__img{aspect-ratio:408/540;border-radius:var(--radius);overflow:hidden;background:var(--card)}
+.card__img img{width:100%;height:100%;object-fit:cover}
+.card .label{margin-top:clamp(8px,.9vw,16px)}
+.card h3{font-family:var(--serif);font-weight:400;font-size:clamp(14px,.93vw,18px);line-height:1.28;margin-top:2px}
+.card .tag{font-size:12px;line-height:1.4;margin-top:clamp(8px,.9vw,14px);color:var(--fg)}
+a.card:hover h3{text-decoration:underline;text-underline-offset:3px}
+.intro2{max-width:34em;margin-bottom:clamp(20px,2vw,32px)}
+
+/* cierre + pie */
+.closing{position:relative;margin-top:clamp(80px,11vw,200px);padding:clamp(60px,9vw,160px) var(--pad) clamp(40px,5vw,80px);
+  background:radial-gradient(120% 90% at 20% 80%,#0f2a3a 0%,#05080b 55%,#000 100%);isolation:isolate}
+:root[data-theme="light"] .closing{background:radial-gradient(120% 90% at 20% 80%,#d6e7ee 0%,#f4f4f4 60%,#fff 100%)}
+.closing hr{border:0;border-top:1px solid var(--line);margin-bottom:clamp(28px,3vw,52px)}
+.closing p{font-size:clamp(18px,1.62vw,32px);line-height:1.14;max-width:26em}
+.foot{display:grid;grid-template-columns:auto repeat(3,minmax(0,1fr)) auto auto;gap:clamp(16px,2vw,40px);
+  align-items:end;margin-top:clamp(120px,22vw,420px);font-size:clamp(12px,.93vw,16px);line-height:1.4}
+.foot .wm{font-weight:500;font-size:clamp(26px,2.9vw,50px);letter-spacing:-.03em;line-height:1;white-space:nowrap}
+.foot b{font-weight:400;display:block;opacity:.7}
+.foot a{text-decoration:none}
+.foot a:hover{text-decoration:underline}
+.social{display:flex;gap:14px;align-items:center}
+.social svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.8}
+.social a:hover{opacity:.6}
+
+/* ---------- página de proyecto ---------- */
+.p-head{padding:calc(var(--nav-h) + clamp(40px,7vw,120px)) var(--pad) 0;text-align:center}
+.p-head .label{font-size:12px;line-height:1.5}
+.p-head .meta{font-size:clamp(12px,.81vw,15px);line-height:1.35;margin-top:2px}
+.p-lead{max-width:min(1023px,100% - 2*var(--pad));margin:clamp(28px,5vw,90px) auto 0;padding:0}
+.col{max-width:min(836px,100% - 2*var(--pad));margin-inline:auto}
+.gal{display:grid;grid-template-columns:1fr 1fr;gap:var(--gap);margin-top:clamp(40px,5vw,90px)}
+.gal.one{grid-template-columns:1fr}
+.fig img,.fig .ph,.fig video{width:100%;border-radius:var(--radius)}
+.fig img{aspect-ratio:408/540;object-fit:cover;background:var(--card)}
+.fig.wide img{aspect-ratio:836/540}
+.fig .ph{aspect-ratio:408/540}
+.fig figcaption{font-family:var(--serif);font-size:12px;line-height:1.35;margin-top:6px}
+.fig figcaption span{font-family:var(--sans);font-size:10px;margin-left:.4em;opacity:.8}
+.p-text{margin-top:clamp(20px,2.6vw,44px);font-size:clamp(14px,.93vw,17px);line-height:1.5;max-width:min(838px,100%)}
+.credits{margin:clamp(70px,9vw,160px) auto 0;text-align:center;font-size:12px;line-height:1.5}
+.credits .label{margin-top:22px;margin-bottom:6px}
+.credits .label:first-child{margin-top:0}
+.credits p{margin:0}
+.quote{font-family:var(--serif);font-size:clamp(18px,1.4vw,26px);line-height:1.35;text-align:center;max-width:min(836px,100% - 2*var(--pad));margin:clamp(60px,8vw,140px) auto 0}
+.strip{display:grid;grid-template-columns:repeat(7,1fr);gap:var(--gap);margin-top:clamp(30px,4vw,70px)}
+.strip img,.strip .ph{aspect-ratio:194/260;width:100%;object-fit:cover;border-radius:var(--radius);background:var(--card)}
+.strip .w2{grid-column:span 2}
+.strip .w2 img{aspect-ratio:408/260}
+.big{margin-top:clamp(60px,8vw,140px);aspect-ratio:1731/981;background:var(--card)}
+
+/* ---------- nosotros ---------- */
+.n-hero{position:relative;min-height:100svh;padding:calc(var(--nav-h) + 24px) var(--pad) clamp(40px,6vw,100px);
+  display:flex;flex-direction:column;justify-content:center;
+  background:radial-gradient(90% 70% at 35% 55%,#2a97b3 0%,#16627a 55%,#0b3948 100%);color:#fff}
+.n-hero .label,.n-hero .meta{color:#fff}
+.n-hero .meta{font-size:clamp(12px,.81vw,15px);line-height:1.35}
+.n-hero .lead{margin-top:clamp(28px,4vw,70px);max-width:46ch;color:rgba(255,255,255,.92)}
+.n-body{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--gap);padding:clamp(60px,9vw,160px) var(--pad) 0}
+.n-body .c{grid-column:2 / span 2}
+.n-body p{font-size:clamp(16px,1.39vw,26px);line-height:1.36;margin-bottom:1.3em}
+.n-body p:first-child{font-family:var(--serif)}
+
+/* ---------- responsive ---------- */
+@media (max-width:1000px){
+  .cards{grid-template-columns:repeat(2,1fr);row-gap:clamp(28px,5vw,44px)}
+  .intro{max-width:none}
+  .hero p{max-width:92vw}
+  .foot{grid-template-columns:1fr 1fr;row-gap:28px}
+  .foot .wm{grid-column:1 / -1}
+  .n-body .c{grid-column:1 / -1}
+  .strip{grid-template-columns:repeat(4,1fr)}
+  .strip .w2{grid-column:span 2}
+}
+@media (max-width:560px){
+  .cards{grid-template-columns:1fr}
+  .pair{grid-template-columns:1fr}
+  .gal{grid-template-columns:1fr}
+  .strip{grid-template-columns:repeat(2,1fr)}
+  .nav__links{gap:10px}
+  .nav a.l{font-size:9.5px}
+  .nav__right{gap:10px}
+  .nav__logo i{width:14px;height:14px}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
